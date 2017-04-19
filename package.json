@@ -1,6 +1,6 @@
 {
   "name": "memoizeref",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "Memoize functions by comparing arguments by reference",
   "main": "index.js",
   "types": "index.d.ts",

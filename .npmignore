@@ -1,6 +1,6 @@
-#packages:
-node_modules/*
-
+.npmignore
 *.ts
+!*.d.ts
 *.test.*
-*.d.ts
+*.js.map
+.vscode/**
