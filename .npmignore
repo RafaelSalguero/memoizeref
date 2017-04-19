@@ -1,6 +1,6 @@
 #packages:
 node_modules/*
 
-*.js
-*.js.map
+*.ts
+*.test.*
 *.d.ts

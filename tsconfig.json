@@ -5,6 +5,7 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "strictNullChecks": true,
+        "declaration": true,
         "lib": [
             "es2015",
             "dom"
