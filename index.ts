@@ -30,7 +30,7 @@ function mapArgsToString(set: (instancia, cadena: string) => void, get: (instanc
 }
 
 /**Store function memoized results. Do not use this class directly, instead use the memoize function*/
-export class MemoizeMap {
+class MemoizeMap {
     /**@param maxDepth Max number of function results to sotre */
     constructor(maxDepth: number) {
         this.maxDepth = maxDepth;
@@ -134,15 +134,20 @@ export class MemoizeMap {
  * @param func The function to memorize
  * @param maxDepth Max number of different function results to store in memory. Default is 5
  */
-export function memoize<T extends (...args) => any>(func: T, maxDepth: number = 5): T {
-    const mapa = new MemoizeMap(maxDepth);
-    return (function () {
+function memoize<T extends (...args) => any>(func: T, maxDepth: number = 5): T {
+    const mapInstance = new MemoizeMap(maxDepth);
+    const ret = (function () {
         const args: any[] = [];
         for (var i = 0; i < arguments.length; i++) {
             args.push(arguments[i]);
         }
 
-        return mapa.getResult(args, func);
+        return mapInstance.getResult(args, func);
     }) as any;
+
+    //Set the map instance for testing pruposes
+    ret.mapInstance = mapInstance;
+    return ret;
 }
 
+export = memoize;

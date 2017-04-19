@@ -7,6 +7,7 @@ Memoizer that compare arguments by *reference*. Useful for:
 
 ### Function definition
 ```ts
+import memoize = require("memoizeref");
 function memoize(func, maxDepth? : number) { ... }
 
 //func - The function to memoize
@@ -15,7 +16,6 @@ function memoize(func, maxDepth? : number) { ... }
 
 ### Example
 ```ts
-import { memoize } from "memoizeref"
 function sum(a,b) {
     return a + b;
 }
@@ -29,10 +29,8 @@ mem(1,2);
 
 ```
 
-## Example with functions as arguments
+### Example with functions as arguments
 ```ts
-import { memoize } from "memoizeref"
-
 //A function that takes another function as argument
 const filter = (items, predicate) => {
     return items.filter(predicate);

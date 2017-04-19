@@ -1,4 +1,14 @@
-import { MemoizeMap, memoize } from "./index";
+import memoize = require("./index");
+
+interface memoizeMap {
+    getResult(args: any[], func: (...args) => any);
+    instanceMapCount : number;
+    resultMapCount : number;
+}
+const createMap = (maxDepth: number) => {
+    const r = memoize(null!, maxDepth) as any;
+    return r.mapInstance as memoizeMap;
+}
 
 test("Function returns the same result", () => {
     const suma = (a: number, b: number) => a + b;
@@ -80,7 +90,7 @@ test("Memoize depth", () => {
 
 test("Memoize memory depth", () => {
     const func = (a, b) => { };
-    const map = new MemoizeMap(2);
+    const map = createMap(2);
 
     //The map starts empty
     expect(map.instanceMapCount).toBe(0);
@@ -129,7 +139,7 @@ test("Memoize memory depth", () => {
 
 test("Memoize memory depth 1000 calls", () => {
     const func = (a, b) => a + b;
-    const map = new MemoizeMap(2);
+    const map = createMap(2);
 
     //1000 calls 
     for (var i = 0; i < 1000; i++) {
