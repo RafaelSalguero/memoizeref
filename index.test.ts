@@ -20,7 +20,6 @@ test("Function returns the same result", () => {
     expect(mem(3, 2)).toBe(5);
 
 });
-
 test("Function returns same array", () => {
 
     const a1 = [1, 2, 3, 4, 5, 6];

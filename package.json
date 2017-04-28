@@ -4,14 +4,15 @@
   "description": "Memoize functions by comparing arguments by reference",
   "main": "index.js",
   "types": "index.d.ts",
-  "dependencies": {
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/RafaelSalguero/memoizeref.git"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "jest": "^19.0.2",
+    "moize": "^2.3.1",
     "ts-jest": "^19.0.10",
     "typescript": "^2.2.2"
   },
@@ -25,5 +26,17 @@
     "immutable"
   ],
   "author": "Rafael Salguero Iturrios <rafaelsalgueroiturrios@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  }
 }

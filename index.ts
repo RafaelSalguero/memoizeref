@@ -9,23 +9,25 @@ interface ResultValue {
     /**Valor que devolvio la funcion para estos argumentos */
     value: any;
 }
+function randomString(instance: any) {
+        return Math.random().toString(36).substr(2, 9);
+}
 
+
+function mapInstance(map: Map<any, InstanceValue>, obj: any) {
+    var nueva = { valor: obj, cont: 1 }
+    const resultado = map.get(obj);
+    if (resultado == null) {
+        const cadena = randomString(obj);
+        map.set(obj, { cadena, referencias: 0 });
+        return cadena;
+    }
+    return resultado.cadena;
+}
 
 /**Regresa la cadena que hace referencia a los argumentos de la función en el mapa que recibe; si los argumentos no existen en el mapa los agrega */
-function mapArgsToString(set: (instancia, cadena: string) => void, get: (instancia) => string | undefined, arr: any[]) {
-    const randomString = () => Math.random().toString(36).substr(2, 9);
-
-    function mapInstance(obj: any) {
-        var nueva = { valor: obj, cont: 1 }
-        const resultado = get(obj);
-        if (resultado == null) {
-            const cadena = randomString();
-            set(obj, cadena);
-            return cadena;
-        }
-        return resultado;
-    }
-    var res = arr.map(x => mapInstance(x));
+function mapArgsToString(map: Map<any, InstanceValue>, arr: any[]) {
+    var res = arr.map(x => mapInstance(map,x));
     return res;
 }
 
@@ -57,15 +59,7 @@ class MemoizeMap {
      * @param resultado El resultado que devolvio la funcion
      */
     private addArgs(args: any[]) {
-        const set = (instancia, cadena: string) => {
-            this.mapaInstancias.set(instancia, { cadena: cadena, referencias: 0 });
-        };
-
-        const get = (instancia) => {
-            const valor = this.mapaInstancias.get(instancia);
-            return valor && valor.cadena;
-        }
-        return mapArgsToString(set, get, args);
+        return mapArgsToString(this.mapaInstancias, args);
     }
 
     private obtenerResultado(argsCadena: string, calcular: () => any) {
