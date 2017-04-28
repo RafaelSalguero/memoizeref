@@ -3,30 +3,25 @@ import moize = require("moize");
 
 import bench = require("benchmark");
 
-const fibRef = memoize((n: number, b: boolean) => {
-    switch (n) {
-        case 0: return 0;
-        case 1: return 1;
-        default: return fibRef(n - 1) + fibRef(n - 2);
-    }
-}, Number.POSITIVE_INFINITY);
+const largeArray: number[] = [];
+for (var i = 0; i < 100000; i++) {
+    largeArray.push(Math.random());
+}
 
-const fibMoize = moize((n: number, b: boolean) => {
-    switch (n) {
-        case 0: return 0;
-        case 1: return 1;
-        default: return fibMoize(n - 1) + fibMoize(n - 2);
-    }
-});
+const func = (arr : number[]) => arr.reduce((a,b)=> a + b, 0);
 
-const param = 35;
+const ref = memoize(func);
+
+const fibMoize = moize(func);
+
+const param = largeArray;
 const suite = new bench.Suite;
 suite.add("memoize ref", () => {
-    fibRef(param, true);
+    ref(param);
 });
 
 suite.add("moize", () => {
-    fibMoize(param, true);
+    fibMoize(param);
 });
 
 suite.on('cycle', function (event) {

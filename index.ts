@@ -126,9 +126,9 @@ class MemoizeMap {
 /**
  * Returns a memoized function that returns the same result when is called with the same arguments. The arguments are compared by reference
  * @param func The function to memorize
- * @param maxDepth Max number of different function results to store in memory. Default is 5
+ * @param maxDepth Max number of different function results to store in memory. Default is 10
  */
-function memoize<T extends (...args) => any>(func: T, maxDepth: number = 5): T {
+function memoize<T extends (...args) => any>(func: T, maxDepth: number = 10): T {
     const mapInstance = new MemoizeMap(maxDepth);
     const ret = (function () {
         const args: any[] = [];
